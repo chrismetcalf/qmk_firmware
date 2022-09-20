@@ -43,6 +43,28 @@ enum plaid_keycodes {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
+
+//Setup consts for LED modes
+#define LEDMODE_ON 1 //always on
+#define LEDMODE_OFF 0 //always off
+#define LEDMODE_MODS 2 //On with modifiers
+#define LEDMODE_BLINKIN 3 //blinkinlights - % chance toggle on keypress
+#define LEDMODE_KEY 4 //On with any keypress, off with key release
+#define LEDMODE_ENTER 5 // On with enter key
+
+// Custom actions
+#define   HYPER                   ACTION_MODS(MOD_LSFT | MOD_LALT | MOD_LCTL | MOD_LGUI)
+#define   AC_PALE                 ACTION_MODS_KEY(MOD_LSFT | MOD_LALT | MOD_LCTL | MOD_LGUI, KC_P)
+#define   AC_PASS                 ACTION_MODS_KEY(MOD_LALT | MOD_LSFT | MOD_LGUI, KC_BSLS)
+#define   AC_LOCK                 ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT | MOD_LALT, KC_L)
+#define   AC_MOOM                 ACTION_MODS_KEY(MOD_LSFT | MOD_LGUI,            KC_BSLS)
+#define   AC_CLIP                 ACTION_MODS_KEY(MOD_LCTL | MOD_LGUI,            KC_BSLS)
+#define   AC_HELP                 ACTION_MODS_KEY(MOD_LSFT | MOD_LGUI,            KC_SLSH)
+#define   AC_QCAP                 ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT | MOD_LGUI, KC_1)
+#define   AC_DRFT                 ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_1)
+#define   AC_OMNI                 ACTION_MODS_KEY(MOD_LCTL | MOD_LALT,            KC_SPC)
+#define   AC_PTT                  KC_F20
+
 // array of keys considered modifiers for led purposes
 const uint16_t modifiers[] = {
   KC_LCTL,
@@ -54,45 +76,26 @@ const uint16_t modifiers[] = {
   KC_LGUI,
   KC_RGUI,
   LOWER,
-  RAISE
+  RAISE,
+  HYPER
 };
-
-//Setup consts for LED modes
-#define LEDMODE_ON 1 //always on
-#define LEDMODE_OFF 0 //always off
-#define LEDMODE_MODS 2 //On with modifiers
-#define LEDMODE_BLINKIN 3 //blinkinlights - % chance toggle on keypress
-#define LEDMODE_KEY 4 //On with any keypress, off with key release
-#define LEDMODE_ENTER 5 // On with enter key
-
-// Custom actions
-#define   AC_PASS                 ACTION_MODS_KEY(MOD_LALT | MOD_LSFT | MOD_LGUI, KC_BSLS)
-#define   AC_LOCK                 ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT | MOD_LALT, KC_L)
-#define   AC_MOOM                 ACTION_MODS_KEY(MOD_LSFT | MOD_LGUI,            KC_BSLS)
-#define   AC_CLIP                 ACTION_MODS_KEY(MOD_LCTL | MOD_LGUI,            KC_BSLS)
-#define   AC_HELP                 ACTION_MODS_KEY(MOD_LSFT | MOD_LGUI,            KC_SLSH)
-#define   AC_QCAP                 ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT | MOD_LGUI, KC_1)
-#define   AC_DRFT                 ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_1)
-#define   AC_OMNI                 ACTION_MODS_KEY(MOD_LCTL | MOD_LALT,            KC_SPC)
-#define   AC_PTT                  KC_F20
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Ctrl |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  | Enter| QCap |
+ * | Ctrl |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  | Enter| Hypr |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  | Shift| Help |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  | Shift| Palt |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  | Omni | Alt  | GUI  | Raise|    Space    | Lower| Clip | OneP | Moom | Lock |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_plaid_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_ENT,  AC_QCAP,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_RSFT, AC_HELP,
+    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_ENT,  HYPER,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_RSFT, AC_PALE,
     KC_ESC,  AC_OMNI, KC_LALT, KC_LGUI, RAISE,   KC_SPC,  KC_SPC,  LOWER,   AC_CLIP, AC_PASS, AC_MOOM, AC_LOCK
 ),
 
@@ -184,7 +187,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
   eeconfig_update_user(led_config.raw);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _FUNC);
 }
 
