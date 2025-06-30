@@ -53,17 +53,15 @@ enum plaid_keycodes {
 #define LEDMODE_ENTER 5 // On with enter key
 
 // Custom actions
-#define   HYPER                   ACTION_MODS(MOD_LSFT | MOD_LALT | MOD_LCTL | MOD_LGUI)
-#define   AC_PALE                 ACTION_MODS_KEY(MOD_LSFT | MOD_LALT | MOD_LCTL | MOD_LGUI, KC_P)
-#define   AC_PASS                 ACTION_MODS_KEY(MOD_LALT | MOD_LSFT | MOD_LGUI, KC_BSLS)
-#define   AC_LOCK                 ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT | MOD_LALT, KC_L)
-#define   AC_MOOM                 ACTION_MODS_KEY(MOD_LSFT | MOD_LGUI,            KC_BSLS)
-#define   AC_CLIP                 ACTION_MODS_KEY(MOD_LCTL | MOD_LGUI,            KC_BSLS)
-#define   AC_HELP                 ACTION_MODS_KEY(MOD_LSFT | MOD_LGUI,            KC_SLSH)
-#define   AC_QCAP                 ACTION_MODS_KEY(MOD_LCTL | MOD_LSFT | MOD_LGUI, KC_1)
-#define   AC_DRFT                 ACTION_MODS_KEY(MOD_LCTL | MOD_LALT | MOD_LGUI, KC_1)
-#define   AC_OMNI                 ACTION_MODS_KEY(MOD_LCTL | MOD_LALT,            KC_SPC)
-#define   AC_PTT                  KC_F20
+#define   AC_CGPT                 HYPR(KC_A)
+#define   AC_PASS                 HYPR(KC_P)
+#define   AC_LOCK                 HYPR(KC_L)
+#define   AC_CLIP                 HYPR(KC_C)
+#define   AC_NOTE                 HYPR(KC_N)
+#define   AC_TODY                 HYPR(KC_T)
+#define   AC_MENU                 HYPR(KC_M)
+#define   AC_PTT                  HYPR(KC_S)
+#define   HY_MOD                  HYPR_T(KC_NO)
 
 // array of keys considered modifiers for led purposes
 const uint16_t modifiers[] = {
@@ -77,7 +75,6 @@ const uint16_t modifiers[] = {
   KC_RGUI,
   LOWER,
   RAISE,
-  HYPER
 };
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -94,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = LAYOUT_plaid_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_ENT,  HYPER,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_RSFT, AC_PALE,
-    KC_ESC,  AC_OMNI, KC_LALT, KC_LGUI, RAISE,   KC_SPC,  KC_SPC,  LOWER,   AC_CLIP, AC_PASS, AC_MOOM, AC_LOCK
+    KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_ENT,  AC_CGPT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_RSFT, AC_MENU,
+    KC_ESC,  HY_MOD,  KC_LALT, KC_LGUI, RAISE,   KC_SPC,  KC_SPC,  LOWER,   AC_CLIP, AC_PASS, HY_MOD,  AC_LOCK
 ),
 
 /* Raise
@@ -112,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_plaid_grid(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______, _______, KC_MINS, KC_EQL,  KC_BSLS, KC_SLSH, KC_LBRC, KC_RBRC, KC_SCLN, KC_QUOT, _______, AC_DRFT,
+    _______, _______, KC_MINS, KC_EQL,  KC_BSLS, KC_SLSH, KC_LBRC, KC_RBRC, KC_SCLN, KC_QUOT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -131,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_plaid_grid(
     _______, KC_BTN1, KC_MS_U, KC_BTN3, KC_WH_U, _______, _______, _______, _______, _______, _______, _______,
     _______, KC_MS_L, KC_MS_D, KC_MS_L, KC_WH_D, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-    _______, KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, AC_MOOM, _______, _______, _______,
+    _______, KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -147,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNC] = LAYOUT_plaid_grid(
-    RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
     _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  _______,
     _______, LED_1,   LED_2,   LED_3,   LED_4,   LED_5,   LED_6,   LED_7,   LED_8,   LED_9,   LED_0,   _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
